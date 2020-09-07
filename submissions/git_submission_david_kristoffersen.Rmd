@@ -1,0 +1,30 @@
+---
+title: "Mandatory homework assignment submission"
+author: "David Kristoffersen"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("R/plotBED.R")
+dframe <- read.csv("data/dataBED.csv")
+```
+
+## Tromsø by night
+![](picture/tromso_by_night.png)
+
+## Number of guests nights at hotels in Troms county per month in 2018
+```{r}
+plotBED(y=dframe$guestNights2018, x=dframe$date, xlab="Month", ylab="Guest nights")
+num_guests <- max(dframe$guestNights2018)
+date <- dframe$date[dframe$guestNights2018==num_guests]
+```
+
+The most guest nights was registeres in `r date`, with `r num_guests` guest nights.
+
+## Guest nights registered
+```{r}
+knitr::kable(dframe)
+```
