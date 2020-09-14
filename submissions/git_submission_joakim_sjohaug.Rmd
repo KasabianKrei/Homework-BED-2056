@@ -1,0 +1,49 @@
+---
+title: "Mandatory homework assignment submission"
+author: "Joakim Sjøhaug"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("./R/plotBED.r")
+library(dplyr)
+dframe <- read.csv("data/dataBED.csv")
+```
+
+![](./picture/tromso_by_night.png)
+
+
+## Plot guest nights in 2018
+```{r plotGuests}
+dates <- dframe[, "date"]
+guestNights2018 <- dframe[, "guestNights2018"]
+plotBED(dates,guestNights2018, xlab="Month", ylab="Number of guest nights")
+title(main="Guest nigts in 2018")
+```
+
+### Month in 2018 with the highest number of guest nights
+```{r monthWithMostguests}
+monthIndex <- which(dframe$guestNights==max(dframe$guestNights2018))
+monthEntry <- dframe[monthIndex,]
+mostGuestNights <- monthEntry$guestNights2018
+monthAsDate <- as.Date(monthEntry$date, "%Y-%m-%d")
+monthAsText <- format(monthAsDate, "%B")
+```
+
+The month with most guest nights in 2018 was <i>`r monthAsText`</i> and the number of guest nights in `r monthAsText` was <i>`r mostGuestNights`</i>
+
+### Table with the number of guest nights in Tromsø per month in 2018
+```{r dataKableTable}
+dateStringToMonth <- function(dateString) {
+   asDate <- as.Date(dateString, "%Y-%m-%d")
+   return (format(asDate, "%B"))
+}
+
+dframe %>%
+  select(date, guestNights2018) %>%
+  mutate(date = dateStringToMonth(date)) %>%
+  knitr::kable(col.names=c("Month", "Guest nights"), "html")
+```
