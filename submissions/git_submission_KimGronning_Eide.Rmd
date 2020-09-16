@@ -1,0 +1,32 @@
+---
+title: "Norway Stays Data"
+author: "Kim Grønning Eide"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+source('R/plotBED.R')
+
+```
+
+```{r}
+dframe <- read.csv('data/dataBED.csv')
+```
+![Tromsø by Night](picture/tromso_by_night.png)
+
+# Number of stays in Tromso 2018
+
+```{r}
+plotBED(dframe$date,dframe$guestNights2018, xlab = "Month", ylab = "Stays")+title( "Stays in Tromso 2018")
+```
+
+The month in 2018 where Tromso had the most visits were `r format(as.Date(dframe[which.max(dframe$guestNights2018), 1]), '%B')` with `r dframe[which.max(dframe$guestNights2018),2]` visitors.
+
+
+### Visits by each month in Tromso
+```{r}
+knitr::kable(dframe)
+```
+
