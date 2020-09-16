@@ -1,0 +1,43 @@
+
+<!--- Har brukt google for å finne koder-->
+
+---
+title: "Homework BED-2056"
+author: "Heggelund"
+date: "Sist endret `r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+df_print: paged
+---
+<center>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+##Laster inn datasett
+library(readr)
+dframe<- read.csv('data/dataBED.csv')
+
+## Henter ut funksjoner fra "PlotBED.R"
+source('R/plotBED.R')
+```
+
+
+
+![Tromsø om natten](picture/tromso_by_night.png)
+
+##  Antall overnattinger i Tromsø
+
+```{r}
+#Bruker plotBED funksjonen for å plotte grafen
+
+Graf <- plotBED(dframe$date,dframe$guestNights2018, xlab = "Måned", ylab = "Overnattinger")+title( "Overnattinger i 2018")
+```
+
+Måneden med flest overnattinger er `r format(as.Date(dframe[which.max(dframe$guestNights2018),1]), "%B")` med `r dframe[which.max(dframe$guestNights2018),2]` gjester.
+
+</center>
+```{r,include=TRUE}
+##Lager en tabell med kable funksjonen
+knitr::kable(dframe)
+
+```
+
