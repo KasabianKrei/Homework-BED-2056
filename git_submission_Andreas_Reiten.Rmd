@@ -1,0 +1,45 @@
+---
+title: "Assignment BED-2056"
+author: "Andreas Reiten Skundberg"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("submissions/R/plotBED.R")
+dframe <- read.csv("submissions/data/dataBED.csv")
+```
+
+![Tromsø At Night](submissions/picture/tromso_by_night.png)
+
+
+
+
+### Tromso Accommodation
+
+##### Graph showing numbers of guests in Tromsø in 2018
+
+```{r}
+plotBED(x = dframe$date, y = dframe$guestNights2018, xlab= "Month", ylab = "Number of Guests")
+
+
+```
+
+
+
+
+
+
+
+
+
+
+The month with the highest number of guests in 2018 was  `r format(as.Date(dframe[which.max(dframe$guestNights2018),1]), "%B")` with `r dframe[which.max(dframe$guestNights2018),2]` guests
+
+
+
+```{r}
+knitr::kable(dframe)
+```
+
