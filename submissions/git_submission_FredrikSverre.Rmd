@@ -1,0 +1,38 @@
+<center>
+---
+title: "Visitors Data"
+author: "Fredrik Sverre Nilssen"
+date: Last edited `r format(Sys.time(), '%d %B %Y')`
+output: html_document
+---
+
+
+```{r setup, include=FALSE }
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+source("R/plotBED.R")
+dframe<- read.csv("data/dataBED.csv")
+```
+
+![Tromsø city at night](picture/tromso_by_night.png)
+
+
+## Guest nights data
+```{r, include=TRUE,echo=FALSE}
+plotBED(y=dframe$guestNights2018,x=dframe$date, ylab= "Guest nights",xlab="Date") 
+title ("Guest nights in Tromsø 2018")
+```
+
+
+```{r, include=FALSE}
+mostmonth <- format(as.Date(dframe[which.max(dframe$guestNights2018),1]), "%B")
+numberguest <- dframe[which.max(dframe$guestNights2018), 2]
+```
+
+
+At the busiest time of the year `r mostmonth` had  `r numberguest` guests:
+
+</center>
+```{r, include=TRUE,echo=FALSE}
+knitr::kable(dframe)
+```
