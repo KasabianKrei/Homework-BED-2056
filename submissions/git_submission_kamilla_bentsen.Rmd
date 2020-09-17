@@ -1,0 +1,30 @@
+---
+title: "Mandatory Assignment BED-2056"
+author: Kamilla Bentsen
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+source("R/plotBED.R")
+dframe <- read.csv("data/dataBED.csv")
+dframe <- dframe %>% mutate(Date = as.Date(date)) %>% select(Date, guestNights2018)
+```
+
+![](picture/tromso_by_night.png)
+
+## Number of hotel stays in 2018
+
+```{r plot_chunk}
+plotBED(dframe$Date, dframe$guestNights2018, main = "Number of Guests by Month in 2018", xlab = "Month", ylab = "Number of Guests")
+
+```
+
+The month with the most guests in 2018 was `r months(dframe[which.max(dframe$guestNights2018), 1])` with a total of `r max(dframe$guestNights2018)` stays.
+
+```{r table_chunk}
+knitr::kable(dframe, col.names = c("Date", "Number of Guests"))
+
+```
+
