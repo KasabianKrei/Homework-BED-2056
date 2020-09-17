@@ -1,0 +1,42 @@
+---
+title: "Mandatory homework assignment submission"
+author: "Svein-Egil S. Haugan"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("./R/plotBED.R")
+dframe <- read.csv("./data/dataBED.csv")
+```
+
+
+## Picture of Tromsø
+![](./picture/tromso_by_night.png)
+
+
+## Plot of hotel visits
+```{r plot}
+plotBED(dframe$date, dframe$guestNights2018, xlab = "Month", ylab = "Guests", main="Guests per month")
+```
+
+```{r calc}
+row_with_highest <- which.max(dframe$guestNights2018)
+row <- dframe[row_with_highest,]
+row_date <- row$date
+converted_date <-as.Date(row_date)
+the_month <- months(converted_date)
+row_visits <- row$guestNights2018
+```
+
+The month `r the_month` has the most visits, which is: `r row_visits`
+
+
+## What the dataset looks like
+```{r}
+knitr::kable(head(dframe))
+```
+
