@@ -1,0 +1,54 @@
+---
+title: "Assignment 2 submission: Joakim Alslie"
+author: "Joakim Aalstad Alslie"
+date: "17/09/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source('./R/plotBED.R')
+dataframe <- read.csv('./data/dataBED.csv')
+```
+
+<div style="margin-bottom:100px;"> </div>
+
+<center>
+### A picture of Tromsø by night! 
+![](./picture/tromso_by_night.png)
+
+<div style="margin-bottom:100px;"> </div>
+
+### Number of guests each night in 2018
+```{r plot, include=TRUE, fig.align='center'}
+plotBED(
+  y=dataframe$guestNights2018,
+  ylab='# of guest nights',
+  x=dataframe$date,
+  xlab='Month'
+  )
+```
+
+```{r most stays, include=TRUE}
+most_stays <- max(dataframe$guestNights2018)
+idx <- which(grepl(most_stays, dataframe$guestNights2018))
+month <- format(as.POSIXct(dataframe$date[idx]), "%B")
+```
+
+<div style="margin-bottom:70px;"> </div>
+
+### Most guest nights in 2018
+The month with the most guest nights in 2018 is _`r month`_, with a total of _`r most_stays`_ nights in total!
+
+<div style="margin-bottom:70px;"> </div>
+
+### Table showin number of guest nights each month in 2018
+</center>
+```{r table, include=TRUE, fig.cap='Title'}
+column_names <- c('Date', 'Stays')
+table_format <- 'simple'
+
+knitr::kable(dataframe, table_format,
+             col.names=column_names,
+             align='c')
+```
