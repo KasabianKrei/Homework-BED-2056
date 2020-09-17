@@ -1,0 +1,30 @@
+---
+title: "git_submission_Sushmit_Dhar"
+author: "Sushmit Dhar"
+date: "`r format(Sys.time(), '%d %b %Y')`"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(kableExtra)
+source("R/plotBED.R")
+dframe <- read.csv("data/dataBED.csv")
+```
+
+![](picture/tromso_by_night.png)
+*Tromsø Sentrum*
+
+## **Guest nights in Tromsø 2018 by month**
+```{r plotBED}
+plotBED(x = dframe$date, y = dframe$guestNights2018, xlab = "Month", ylab = "Number of guest nights")
+```
+
+**The month of `r format(as.Date(dframe[which.max(dframe$guestNights2018),1]), "%B")` had the most amount of guest nights with `r dframe[which.max(dframe$guestNights2018),2]` in 2018.**
+
+```{r kable}
+dframe %>%  kable( col.names = c("Date","Guest Nights"), caption = "Table of Guest nights in Tromsø 2018 by month") %>%  kable_classic( html_font = "Cambria")
+```
