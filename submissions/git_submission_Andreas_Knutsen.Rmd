@@ -1,0 +1,34 @@
+---
+title: "Mandatory homework assignment submission"
+authur: "Andreas Knutsen"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("R/plotBED.R")
+dframe<-read.csv("data/dataBed.csv")
+
+```
+
+## Tromsø by night.
+
+![](picture/tromso_by_night.png)
+
+## An overview of the number of guests in Troms in 2018 per month.
+
+```{r}
+
+plotBED(x=dframe$date, y=dframe$guestNights2018, xlab="Date", ylab="Number of guests")
+most_guest<-max(dframe$guestNights2018)
+most_month<-dframe$date[dframe$guestNights2018==most_guest]
+```
+
+The month with the most guest staying in Troms was `r most_month` with `r most_guest` guests.
+
+## A table that shows the number of guests in 2018.
+```{r}
+knitr::kable(dframe)
+```
