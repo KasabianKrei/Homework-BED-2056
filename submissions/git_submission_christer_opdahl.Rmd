@@ -1,0 +1,33 @@
+---
+title: "Mandatory homework assignment submission"
+author: "Christer Hagenes Opdahl"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+
+source("R/plotBED.R")
+
+library(readr)
+dframe <- read.csv("data/dataBED.csv")
+```
+
+![Tromso by night](picture/tromso_by_night.png)
+# approriate header below the picture
+
+# approriate header above the plot
+
+## Guest nights data
+```{r, include=TRUE,echo=FALSE}
+plotBED(y=dframe$guestNights2018, x=dframe$date, ylab="Guests nights", xlab="Date") 
+title ("Guest per night Tromso 2018")
+```
+The month with the highest number of guests spending the night was `r format(as.Date(dframe[which.max(dframe$guestNights2018),1]), "%B")` with `r dframe[which.max(dframe$guestNights2018),2]`
+
+```{r}
+knitr::kable(dframe)
+```
