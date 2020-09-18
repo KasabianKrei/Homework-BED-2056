@@ -1,0 +1,29 @@
+---
+title: "Mandatory homework assignment submission"
+author: "Sivert Johansen"
+date: "`r format(Sys.time(), '%d %b %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("R/plotBED.R")
+dframe <- read.csv("data/dataBED.csv")
+```
+
+![](picture/tromso_by_night.png)
+<h2>Picture of Tromsø<h2>
+
+
+<h1>Guest nights in 2018</h1>
+```{r plotting}
+plotBED(dframe[, "date"], dframe[, "guestNights2018"], xlab="Date", ylab="Number fo Guests")
+title("Guest nights 2018")
+```
+
+The month with most guest nights was: `r format(as.Date(dframe[which.max(dframe$guestNights2018),1]), "%B")`: `r dframe[which.max(dframe$guestNights2018),2]`
+
+
+```{r kable}
+knitr::kable(dframe)
+```
