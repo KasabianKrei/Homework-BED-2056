@@ -1,0 +1,37 @@
+---
+title: "Homework assignment"
+author: "Eirik Engmo Pettersen"
+date: "9/19/2020"
+output: 
+    html_document:
+        df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("R/plotBED.r")
+dframe <- read.csv("data/dataBED.csv")
+```
+
+![](picture/tromso_by_night.png)
+
+<h1>Tromso by Night</h1>
+
+<br>
+
+<h1>Number of guests per night</h1>
+```{r}
+plotBED(dframe$date, dframe$guestNights2018, ylab="Guests per Night", xlab="Month")
+```
+```{r}
+maxMonthIndex <- which.max(dframe$guestNights2018)
+maxMonthName <- months(as.Date(dframe$date[maxMonthIndex]))
+maxMonthNights <- dframe$guestNights2018[maxMonthIndex]
+```
+The month with the most guest nights was `r maxMonthName` with a total of `r maxMonthNights` nights.
+
+```{r}
+knitr::kable(dframe)
+```
+
+

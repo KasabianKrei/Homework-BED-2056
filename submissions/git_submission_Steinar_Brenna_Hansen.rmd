@@ -1,0 +1,33 @@
+---
+title: "Mandatory homework assignment submission"
+authur: "Steinar Brenna Hansen"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("R/plotBED.R")
+df <- read.csv("data/dataBED.csv")
+```
+
+![](./picture/tromso_by_night.png)
+
+<h1> Guests staying overnight in tromsø </h1>
+```{r plot}
+plotBED(df$date, df$guestNights2018, xlab="Date", ylab="guests per night")
+```
+
+```{r dynamic}
+most_guests <- max(df$guestNights2018)
+date <- df[which.max(df$guestNights2018), 'date']
+month <- months(as.Date(date, origin="1970-01-01"))
+```
+
+<b> The month with most visitors was `r month`, with `r most_guests` visitors</b>
+
+
+```{r kable}
+knitr::kable(df)
+```

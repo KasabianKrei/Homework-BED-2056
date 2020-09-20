@@ -1,0 +1,26 @@
+---
+title: "Git / RMarkdown assignment"
+author: "Asbjorn Aarekol"
+date: "20/09/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("R/plotBED.R")
+dframe <- read.csv("data/dataBED.csv")
+```
+![The Edge hotel](./picture/tromso_by_night.png)
+
+
+## Guests in Tromso 2018
+```{r plot}
+plotBED(y=dframe$guestNights2018, x=dframe$date, ylab="Guests times days stayed", xlab="Month")
+```
+
+The month with the most amount of nights stayed is `r format(as.Date(dframe[which.max(dframe$guestNights2018),1]), "%B")` with `r dframe[which.max(dframe$guestNights2018),2]` guests in total.
+
+### Table of the data
+```{r}
+knitr::kable(dframe)
+```

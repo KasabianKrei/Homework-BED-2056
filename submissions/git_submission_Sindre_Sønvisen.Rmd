@@ -1,0 +1,35 @@
+---
+title: "git_submission_Sindre_Sønvisen"
+author: "Sindre Sønvisen"
+date: "9/19/2020"
+output: 
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("R/plotBED.R")
+dframe <- read.csv("data/dataBED.csv")
+
+```
+
+![tromso_by_night](picture/tromso_by_night.png)
+
+## Guest nights per month
+```{r plot}
+plotBED(dframe$date, dframe$guestNights2018, xlab="Month", ylab="Guest nights")
+```
+
+```{r extract max month}
+row <- dframe[which.max(dframe$guestNights2018),]
+month <- months(as.Date(row$date))
+nr_guestNights <- row$guestNights2018
+```
+The month with the most guest nights was: `r month`, with `r nr_guestNights` guest nights.
+
+
+```{r table}
+knitr::kable(dframe, format = "markdown")
+```
+
