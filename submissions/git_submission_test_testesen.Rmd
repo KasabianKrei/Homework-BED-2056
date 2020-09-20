@@ -1,0 +1,56 @@
+---
+title: "Mandatory Homework Assignment "
+author: "Test Testesen"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+
+library(knitr)
+#setwd("/your/path/to/Homework-BED-2056/submissions")
+
+source("R/plotBED.R")
+dframe <- read.csv("data/dataBED.csv")
+## The references to external files above and below can now work for anyone I 
+## share the code with, as long as the working directory (getwd) of the rmd file
+## is in the submissions folder.
+```
+
+![](picture/tromso_by_night.png)
+&nbsp;
+<!-- Added space between picture and heading -->
+
+## Guest nights in Troms county, 2018
+
+```{r plot}
+
+plotBED(dframe$date, dframe$guestNights2018, xlab = "2018", ylab= "Guest Nights")
+# x and y text
+
+```
+
+
+```{r dynamic_text}
+maxGuestNights <- max(dframe$guestNights2018) # captioning highest number
+maxGuestDate <- as.Date(dframe[dframe$guestNights2018==maxGuestNights, "date"])
+# captioning the date connected to the highest number 
+```
+
+The month with the highest activity is `r format(maxGuestDate, "%B")`. The total number of guest nights is `r format(maxGuestNights, big.mark= " ")`.
+
+
+```{r table_setup}
+dframe$date <- as.Date(dframe$date) # as date to collect text variable of the month
+dframe$date <- months(dframe$date) # assigning name of which month to dframe
+dframe$guestNights2018 <- format(dframe$guestNights2018, big.mark = " ") # present numbers with space between thousands
+colnames(dframe) <- c("Month", "Guest Nights") # changing names for table presentation
+```
+
+
+```{r table}
+kable(dframe, row.names = F, align = "c") # Creating a table
+```
+
