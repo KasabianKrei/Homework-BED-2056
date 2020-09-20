@@ -1,0 +1,30 @@
+---
+title: "Homework"
+author: "Lars Kristian Kristiansen"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("R/plotBED.R")
+dframe <- read.csv("data/dataBED.csv")
+```
+
+![](picture/tromso_by_night.png)
+
+```{r}
+plotBED(x=dframe$date, y=dframe$guestNights2018,  xlab="Month", ylab="Guest nights")
+title("Number of guests nights for 2018")
+```
+
+```{r}
+mostVisited <- which.max(dframe$guestNights2018)
+```
+
+`r months(as.Date(dframe$date[mostVisited]))` is the month with most amount of guest months counting `r dframe$guestNights2018[mostVisited]`.
+
+```{r kable}
+knitr::kable(dframe)
+```
