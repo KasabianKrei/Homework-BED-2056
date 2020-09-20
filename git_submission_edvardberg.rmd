@@ -1,0 +1,24 @@
+---
+title: "git_submission_edvardberg.Rmd"
+author: "Edvard berg"
+date: "20 9 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+source("R/plotBED.R")
+df <- read.csv("submissions/data/dataBED.csv")
+
+
+```
+
+<h2>Tromsø by night </h2>
+
+![Tromsø by night](submissions/picture/tromso_by_night.png)
+```{r, include=TRUE,echo=FALSE}
+plotBED(y=df$guestNights2018,x=df$date, ylab= "Guest nights",xlab="Date") 
+title ("overnattinger i Tromsø 2018")
+```
+

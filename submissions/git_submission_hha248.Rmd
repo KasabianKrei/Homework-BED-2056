@@ -1,0 +1,37 @@
+<!--- For å finne koder har jeg brukt internett-->
+
+---
+title: "git_submission_hha248"
+author: "Herman Jakob Haugaa"
+date: "Sist endret `r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+df_print: paged
+---
+
+<center>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(readr)
+```
+
+
+![Et bilde av Tromsø sentrum på nattestid](picture/tromso_by_night.png) 
+
+```{r}
+library(readr)
+dframe <- read.csv('data/dataBED.csv')
+```
+
+## Antall besøkende i Tromsø
+```{r}
+source('R/plotBED.R')
+plotBED(y=dframe$guestNights2018, x=dframe$date, ylab = "Overnattinger", xlab="Måned")
+title("Antall overnattinger i Tromsø i 2018")
+```
+
+Måneden med det høyeste antallet overnattinger var `r format(as.Date(dframe[which.max(dframe$guestNights2018),1]), "%B")` med `r dframe[which.max(dframe$guestNights2018),2]` gjester.
+
+## Antall overnattingsgjester hver måned i Tromsø i 2018
+```{r}
+knitr::kable(dframe,"simple")
+```

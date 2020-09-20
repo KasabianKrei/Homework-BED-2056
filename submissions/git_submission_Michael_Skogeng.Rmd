@@ -1,0 +1,31 @@
+---
+title: "Mandatory homework assignment submission"
+author: "Michael Skogeng"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("./R/plotBED.R")
+dataframe <- read.csv("data/dataBED.csv")
+```
+<h3>A mall and hotel in tromsø by night.</h3>
+![](./picture/tromso_by_night.png)
+
+
+<h1>Number of guest staying over in Tromsø in 2018.</h1>
+```{r night}
+plotBED(dataframe$date, dataframe$guestNights2018, xlab="Month", ylab="Guest staying overnight")
+month <- months(as.Date(dataframe[which.max(dataframe$guestNights2018), 1], origin="1970-01-01"))
+biggest_month <- dataframe[which.max(dataframe$guestNights2018), 2]
+```
+
+<h4>`r month` had the most guests staying over at a number of `r biggest_month`.</h4>
+
+
+```{r kable}
+knitr::kable(dataframe)
+```

@@ -1,0 +1,53 @@
+---
+title: "Assignment 2"
+author: "Aleksander Leonardsen"
+date: "9/20/2020"
+output: html_document
+---
+
+<!-- I used a few of the other assignments to see how to import data from git. And code from class and stack overflow.  -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("R/plotBED.R")
+library(readr)
+dframe <- read.csv("data/dataBED.csv")
+```
+
+<!-- https://stackoverflow.com/questions/25166624/insert-picture-table-in-r-markdown -->
+
+
+![Tromso by night](picture/tromso_by_night.png)
+
+## Nerstranda by night. 
+
+
+
+## Guest stays. 
+```{r, include=TRUE,echo=FALSE}
+plotBED(y=dframe$guestNights2018, x=dframe$date, ylab="Guests stays", xlab="Date") 
+title ("Guest per night Tromso 2018")
+```
+The month with the highest number of guests spending the night was `r format(as.Date(dframe[which.max(dframe$guestNights2018),1]), "%B")` with `r dframe[which.max(dframe$guestNights2018),2]`
+
+## Table of data.
+
+```{r}
+knitr::kable(dframe)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

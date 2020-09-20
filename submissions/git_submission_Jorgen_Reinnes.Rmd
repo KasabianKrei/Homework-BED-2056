@@ -1,0 +1,46 @@
+---
+title: "Mandatory assignment 2"
+author: "Jørgen Reinnes"
+output: 
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(lubridate)
+knitr::opts_chunk$set(echo = FALSE)
+source("./R/plotBED.R")
+dframe <- read.csv("./data/dataBED.csv")
+```
+
+![Tromsø By Night](./picture/tromso_by_night.png)
+
+```{r plotGuest}
+plotBED(x=dframe$date, y=dframe$guestNights2018, xlab="Month", ylab="Number of Guests")
+title(main="Number of Guests Each Month of 2018")
+```
+
+## Month With the Most Visits
+
+```{r monthWIthMostGuests}
+idxMostVisited <- which.max(dframe$guestNights2018)
+mostVisitedMonthRow <- dframe[idxMostVisited,]
+mostVisitedMonth <- months(as.Date(mostVisitedMonthRow$date))
+```
+
+`r mostVisitedMonth` was the most visited month with `r mostVisitedMonthRow$guestNights2018` visitors.
+
+## Some Months With Most Guest Visits
+
+```{r tableView}
+# Sort data by guest numbers and then format date to month
+orderedData <- dframe %>% .[order(-.$guestNights2018),] %>% 
+  mutate(date=format(strptime(.$date, "%Y-%m-%d"), "%B"))
+# Display simple html table
+knitr::kable(head(orderedData), col.names = c("Month", "Number of Guests"), row.names=FALSE)
+```
+
+
+

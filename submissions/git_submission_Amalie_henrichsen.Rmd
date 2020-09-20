@@ -1,0 +1,31 @@
+---
+title: "Assingment 2"
+author: "Amalie Henrichsen"
+date: "`r format(Sys.time(), '%d %b %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("./R/plotBED.R")
+dframe <- read.csv("./data/dataBED.csv")
+```
+## Report of monthly occupancy 2018
+![Night view of the city](./picture/tromso_by_night.png)
+
+
+## Hotel visits at a glance in 2018
+```{r plot}
+plotBED(dframe$date, dframe$guestNights2018, xlab = "Month", ylab = "N. Of Guests", main="Evolution of Guests per month")
+```
+
+
+In 2018 -as evidenced in the graph above- the month with more guests per night was  **`r format(as.Date(dframe[which.max(dframe$guestNights2018),1]), "%B")`**, with a total ocupation of **`r dframe[which.max(dframe$guestNights2018),2]`** nights enjoyed by guests. This information can be seen as well in the table *below*.
+
+## Occupancy per month 2018 expressed in guest nights
+```{r}
+knitr::kable(dframe,
+             col.names = c("Date", "N. of nights")
+             )
+```
+
