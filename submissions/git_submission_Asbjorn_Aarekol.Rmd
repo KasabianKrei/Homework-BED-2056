@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = FALSE)
 source("R/plotBED.R")
 dframe <- read.csv("data/dataBED.csv")
 ```
-![Night view of the city](./picture/tromso_by_night.png)
+![The Edge hotel](./picture/tromso_by_night.png)
 
 
 ## Guests in Tromso 2018
