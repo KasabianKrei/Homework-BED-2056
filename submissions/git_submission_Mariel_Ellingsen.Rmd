@@ -1,0 +1,40 @@
+---
+title: "Mandatory homework assignment submission"
+author: "Mariel Ellingsen"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("./R/plotBED.R")
+dframe <- read.csv("./data/dataBED.csv")
+
+```
+
+![Tromsø city by night](picture/tromso_by_night.png)
+
+### Below you will find a plot displaying the guest nights in Troms county at hotels in 2018
+```{r plot, out.width="100%"}
+date <- dframe[, "date"]
+guestNights <- dframe[, "guestNights2018"]
+plotBED(date, guestNights, xlab="Months", ylab="Number of guest nights")
+title(main="Guest nights in 2018")
+```
+
+```{r most_guests, out.width="100%"}
+most_guests <- max(dframe$guestNights2018)
+index <- which(grepl(most_guests, dframe$guestNights2018))
+month <- format(as.Date(dframe$date[index]), "%B")
+```
+
+<h5>The month with most guests in 2018 is `r month` with a total of `r  most_guests` stayes. </h5>
+
+
+### Below you will find a table diplaying the guest nights per month in 2018
+
+```{r table, include=TRUE}
+column <- c('Date', 'guestNights')
+knitr::kable(dframe, col.names=column, align='c')
+```
