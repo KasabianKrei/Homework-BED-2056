@@ -1,0 +1,35 @@
+---
+title: "Assignment 2"
+author: "Daniel Larsen"
+date: "21 9 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("R/plotBED.R")
+dframe <- read.csv("data/dataBED.csv")
+```
+
+![Dock and close skyline as seen from the harbour basin](picture/tromso_by_night.png)
+
+
+### Monthly development of guests in 2018 {.css_class}
+
+#Insert plot from dataframe
+```{r}
+plotBED(dframe$date, dframe$guestNights2018,
+     xlab="Month", ylab="Total guest by month", main="Development of occupancy"
+)
+```
+
+From the plot above its illustrated that the month with most guests per night was
+**`r format(as.Date(dframe[which.max(dframe$guestNights2018),1]), "%B")`**. The total occupancy for the month was
+**`r dframe[which.max(dframe$guestNights2018),2]`**.
+
+## Table of the data
+```{r}
+knitr::kable(dframe)
+```
+
+
