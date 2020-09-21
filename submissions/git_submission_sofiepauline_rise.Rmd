@@ -1,0 +1,48 @@
+<center>
+
+---
+title: "Assignment 2, git and R"
+author: "Sofie Pauline Rise"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_document
+---
+<style>
+
+body{
+ color: #608080;
+ font-family: Calibri;
+ background-color: #F6F6F6;
+}
+</style>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyverse)
+source("submissions/R/plotBED.R")
+dframe<- read.csv("submissions/data/dataBED.csv")
+```
+
+
+
+### Tromsø city by night
+![](submissions/picture/tromso_by_night.png){width=74%}
+
+### Hotel stays in Troms in the year 2018
+```{r, include= TRUE, echo=FALSE}
+X <- dframe[, "date"]
+Y <- dframe[, "guestNights2018"]
+plotBED(X,Y, xlab="Months", ylab="Number of hotel nights")
+```
+
+</center>
+
+
+#### With `r dframe[which.max(dframe$guestNights2018),2]` numbers of stays at hotels the month with the highest number of hotel stays was `r format(as.Date(dframe[which.max(dframe$guestNights2018),1]), "%B")`
+
+```{r kable, include= TRUE, echo=FALSE}
+knitr::kable(dframe)
+```
+
+
+
+
