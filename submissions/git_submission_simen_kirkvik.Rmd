@@ -1,0 +1,27 @@
+---
+title: "A look at hotels in Tromso"
+author: "Simen Kirkvik"
+date: "9/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("./R/plotBED.R")
+df <- read.csv("./data/dataBED.csv")
+```
+
+![Tromso by night](./picture/tromso_by_night.png)
+
+```{r plot}
+plotBED(df$date, df$guestNights2018,
+        xlab = "Month", ylab = "N Guests", main="Guests per month")
+```
+
+
+
+The month with the highest amount of guests was  **`r format(as.Date(df[which.max(df$guestNights2018),1]), "%B")`**, with **`r df[which.max(df$guestNights2018),2]`** nights in total. This information can be seen as well in the table *below*.
+
+```{r}
+knitr::kable(df, col.names = c("Date", "N nights"))
+```
