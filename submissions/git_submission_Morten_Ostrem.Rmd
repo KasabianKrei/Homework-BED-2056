@@ -1,0 +1,26 @@
+---
+title: "Rmd oblig"
+author: "Morten S. Østrem"
+date: "9/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("R/plotBED.R")
+df <- read.csv("data/dataBED.csv")
+```
+![Clarion Hotel The Edge By Night](./picture/tromso_by_night.png)
+
+
+## Plot of visits to The Edge in 2018
+```{r plot}
+plotBED(y=df$guestNights2018, x=df$date, ylab="Guests times days stayed", xlab="Month")
+```
+
+`r format(as.Date(df[which.max(df$guestNights2018),1]), "%B")` was the busiest time of the year, totalling `r df[which.max(df$guestNights2018),2]` guests over the course of the month.
+
+### Monthly visits at The Edge in 2018
+```{r}
+knitr::kable(df)
+```
